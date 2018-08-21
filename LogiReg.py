@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Priyanka Kasture | pkasture2010@gmail.coom
+# Priyanka Kasture | pkasture2010@gmail.com
 # Logistic Regression - Machine Learning classification algorithm that is used to predict the probability of a categorical dependent variable.
 # Reference Book : Learning Predictive Analytics With Python (https://books.google.co.in/books/about/Learning_Predictive_Analytics_with_Pytho.html?id=Ia5KDAAAQBAJ&printsec=frontcover&source=kp_read_button&redir_esc=y#v=onepage&q&f=false)
 
