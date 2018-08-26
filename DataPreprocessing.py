@@ -1,4 +1,6 @@
+# Priyanka Kasture | pkasture2010@gmail.com
 # Data Preprocessing - Importing, Cleaning, Preparing and Splitting Data
+# Code tried and tested on Spyder (Python 3.6)
 # The following code can be used as a Data-Preprocessing Template
 
 # Importing the libraries
@@ -14,11 +16,10 @@ y = dataset.iloc[:, 3].values # All rows, 3rd column
 # Taking care of missing data
 from sklearn.preprocessing import Imputer
 imputer = Imputer(missing_values = 'NaN', strategy = 'mean', axis = 0)
-imputer = imputer.fit(X[:, 1:3]) # Taking indexes 1 and 2 of the matrix, upper bound isnt included
+imputer = imputer.fit(X[:, 1:3]) # Taking indexes 1 and 2 of the matrix, upper bound isn't included
 X[:, 1:3] = imputer.transform(X[:, 1:3])
 
 # Encoding categorical data
-
 # Encoding the Independent Variable
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 labelencoder_X = LabelEncoder()
@@ -34,7 +35,8 @@ y = labelencoder_y.fit_transform(y)
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
 
-# Feature Scaling
+# Feature Scaling - Used when there is a huge difference between the range of the features under consideration
+# Used so that one feature does not dominate the other
 """from sklearn.preprocessing import StandardScaler
 sc_X = StandardScaler()
 
