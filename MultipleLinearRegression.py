@@ -1,25 +1,60 @@
-import matplotlib.pyplot as plt
+# Priyanka Kasture | pkasture2010@gmail.com
+# Multiple Linear Regression with Backward Elimination on the '50_Startups' Dataset
+
+# Importing the libraries
 import numpy as np
-from sklearn import datasets,metrics,linear_model
+import matplotlib.pyplot as plt
+import pandas as pd
 
-# Boston-House-Pricing Dataset
-boston_pricing = datasets.load_boston(return_X_y=False)
-X = boston_pricing.data
-y = boston_pricing.target
+# Importing the dataset
+dataset = pd.read_csv('50_Startups.csv')
+X = dataset.iloc[:, :-1].values
+y = dataset.iloc[:,4].values
 
+from sklearn.preprocessing import LabelEncoder,OneHotEncoder
+labelencoder = LabelEncoder()
+X[:,3] = labelencoder.fit_transform(X[:,3])
+onehotencoder = OneHotEncoder(categorical_features = [3])
+X = onehotencoder.fit_transform(X).toarray()
+
+# Avoiding the - dummy variable trap
+X = X[:, 1:]
+
+# Splitting the dataset into the Training set and Test set
 from sklearn.model_selection import train_test_split
-X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.4,random_state=1)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 1/5, random_state = 0)
 
-regression = linear_model.LinearRegression()
-regression.fit(X_train,y_train)
+# Fitting the line
+from sklearn.linear_model import LinearRegression
+regressor = LinearRegression()
+regressor.fit(X_train,y_train)
+y_pred = regressor.predict(X_test)
 
-print('Multiple Linear Regression Coefficients: ',regression.coef_)
-print('Variance : {}',format(regression.score(X_test,y_test)))
+# For backward elimination - Used for reducing the number of features/independent variables
+import statsmodels.formula.api as sm
+X = np.append(arr=np.ones((50,1)).astype(int),values = X,axis=1)
+sig = 0.05 # Significance level
 
-plt.style.use('fivethirtyeight')
-plt.scatter(regression.predict(X_train),regression.predict(X_train)-y_train,color="red",s=8,label='Training Data')
-plt.scatter(regression.predict(X_test),regression.predict(X_test)-y_test,color="blue",s=8,label='Testing Data')
-plt.hlines(y=0,xmin=0,xmax=50,linewidth=1.5)
-plt.legend(loc='upper right')
-plt.title("Residual Errors")
-plt.show()
+X_optimal = X[:,[0,1,2,3,4,5]] # X_optimal initilized as the original matrix of features (6)
+regressor_ols = sm.OLS(endog = y, exog = X_optimal).fit()
+regressor_ols.summary()
+
+# Remove the feature that shows the highest p-value
+# Lesser the p-value - lesser significant the feature
+X_optimal = X[:,[0,1,3,4,5]]
+regressor_ols = sm.OLS(endog = y, exog = X_optimal).fit()
+regressor_ols.summary()
+
+X_optimal = X[:,[0,3,4,5]]
+regressor_ols = sm.OLS(endog = y, exog = X_optimal).fit()
+regressor_ols.summary()
+
+X_optimal = X[:,[0,3,5]]
+regressor_ols = sm.OLS(endog = y, exog = X_optimal).fit()
+regressor_ols.summary()
+
+X_optimal = X[:,[0,3]]
+regressor_ols = sm.OLS(endog = y, exog = X_optimal).fit()
+regressor_ols.summary()
+# X_optimal now remains a feature matrix with just 2 significant features
+# The process mentioned above can be automated by the use of loops
