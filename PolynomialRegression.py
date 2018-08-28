@@ -1,3 +1,6 @@
+# Priyanka Kasture | pkasture2010@gmail.com
+# Polynomial Regression on 'Position_Salaries' Dataset
+
 # Importing the libraries
 import numpy as np
 import matplotlib.pyplot as plt
