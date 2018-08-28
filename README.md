@@ -4,3 +4,4 @@ Fully functional implementations of the most popularly used machine learning alg
 2.  Simple Linear Regression - Salary_Data.csv
 3.  Multiple Linear Regression - 50_Startups.csv
 4.  Polynomial Regression - Position_Salaries.csv
+5.  Support Vector Regression - Position_Salaries.csv
