@@ -15,4 +15,5 @@ Fully functional implementations of the most popularly used machine learning alg
 3. Classification </br>
 3.1. Logistic Regression - Social_Network_Ads.csv </br>
 3.2. K-Nearest Neighbors - Social_Network_Ads.csv </br>
-3.3. Support Vector Machine - Social_Network_Ads.csv </br>
+3.3. Support Vector Machine (Linear) - Social_Network_Ads.csv </br>
+3.4. Kernel (RBF) Support Vector Machine - Social_Network_Ads.csv </br>
